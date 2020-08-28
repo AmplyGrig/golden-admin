@@ -1,28 +1,59 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <Leftbar/>
+    <Header/>
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header';
+import Leftbar from './components/Leftbar';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
+  components: {
+    Header,
+    Leftbar
+  },
+
+  data: () => ({
+    //
+  }),
+  created () {
+      this.$vuetify.theme.dark = true
+    },
+};
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@font-face {
+font-family: 'Qanelas Regular';
+src: url('/assets/fonts/Qanelas-Regular.eot');
+src: url('/assets/fonts/Qanelas-Regular.eot?#iefix') format('embedded-opentype'),
+url('/assets/fonts/Qanelas-Regular.woff') format('woff'),
+url('/assets/fonts/Qanelas-Regular.ttf') format('truetype');
+font-weight: normal;
+font-style: normal;
 }
+@font-face {
+  font-family: "Novatny Bold";
+  src: url('assets/fonts/NovatnyBold.otf');
+}
+.v-toolbar__title{
+  font-family:Novatny Bold;
+  font-size:30px;
+  color:#FFC700!important;
+}
+#app{
+  background: black;
+  padding: 0,20px;
+}
+.mainmenu *,#app *{
+  color: white;
+  font-family:Qanelas Regular;
+}
+
 </style>
