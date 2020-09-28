@@ -3,8 +3,9 @@
           class=" lk-body lk-admin"
           fluid
           >
-          <div class="logoUsers">
-              <v-list-item-content>Пользователи</v-list-item-content>
+          <div class="logo-page">
+          
+              <v-list-item-content><v-list-item-title>Пользователи</v-list-item-title></v-list-item-content>
           </div>
               <v-row  class="mx-10" style="margin-top: 20px;">
                 <v-text-field
@@ -17,7 +18,7 @@
               </v-row>
 
           <v-card  class="mx-8"
-              width="100%"
+              width="90%%"
               color="transparent"
               >
               <v-simple-table color="transparent" fixed-header >
@@ -32,11 +33,12 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr  v-for="(item, index) in filteredList" :key="index">
-                        <td>{{ item.user_name }}</td>
-                        <td>{{ item.object_name }}
-                        <td>{{ item.change_time }}
-                        <td><v-btn   :to="'/lkadmin/' + item.object_id"  color="#232020" dark>Смотреть</v-btn></td>
+                      <tr  v-for="(item, index) in filteredList" :key="index" :to="'/lkadmin/' + item.object_id">
+                       <td>{{ item.telephone }}
+                       <td>{{ item.email }}
+                      <td>{{ item.surename + ' '+ item.name +' '+ item.father }}</td>
+                       <td>{{role_id}}</td>
+                        <td>{{ item.activity }}</td>
                       </tr>
                     </tbody>
                   </template>
@@ -48,12 +50,12 @@
 import axiosAuth from "@/api/axios-auth"
 export default {
   data: () => ({
-    usersList: [{user_name:"qwerty",object_name:"qwerty",change_time:"10"}],
+    usersList: [],
     sortKey: 'user_name',
     reverse: false,
     search: '',
     columns: [ 'Телефон', 'EMAIL', 'ФИО','Уровень доступа','Активность' ],
-    getsrc: {'ФИО' : 'user_name', 'Название объекта' : 'object_name', 'Время изменения': 'change_time'}
+    getsrc: {'ФИО' : 'surename', 'Телефон' : 'telephone', 'EMAIL': 'email','Уровень доступа': 'role_id','Активность': 'activity'}
   }),
   methods: {
     logout(){
@@ -103,3 +105,12 @@ export default {
   }
 }
 </script>
+<style>
+.logo-page .v-list-item__title {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 34px!important;
+    line-height: 42px;
+    margin-bottom: 30px;
+}
+</style>

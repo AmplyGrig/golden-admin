@@ -150,6 +150,20 @@ export default {
       const file = e.target.files[0];
       this.homeworkFiles.push(file)
       // this.url = URL.createObjectURL(file);
+    },
+    sendForm(){
+      var form_data = new FormData()
+      form_data.append('description', this.description)
+      form_data.append('price', this.price)
+      form_data.append('cover_img', this.img)
+      form_data.append('name', this.name)
+      axios.post('course/new', form_data).then((response) => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+      // console.log(this.name)
+      // console.log(fd.get(name))
     }
   }
 };

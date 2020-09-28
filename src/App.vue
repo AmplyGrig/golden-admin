@@ -43,7 +43,7 @@ font-style: normal;
   src: url('assets/fonts/NovatnyBold.otf');
 }
 .v-toolbar__title{
-  font-family:Novatny Bold;
+  font-family:Novatny Bold!important;
   font-size:30px;
   color:#FFC700!important;
 }

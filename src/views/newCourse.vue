@@ -102,7 +102,7 @@
 </template>
 
 <script>
-// import axiosAuth from "@/api/axios-files"
+import axiosAuth from "@/api/axios-files"
 export default {
   data: () => ({
     url:"",
@@ -127,11 +127,13 @@ export default {
       var form_data = new FormData()
       form_data.append('description', this.description)
       form_data.append('price', this.price)
-      form_data.append('img', this.img)
+      form_data.append('cover_img', this.img)
       form_data.append('name', this.name)
-      for (var key of form_data.entries()) {
-        console.log(key[0] + ', ' + key[1]);
-      }
+      axios.post('course/new', form_data).then((response) => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
       // console.log(this.name)
       // console.log(fd.get(name))
     }
