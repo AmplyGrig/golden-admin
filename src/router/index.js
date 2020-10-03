@@ -3,13 +3,17 @@ import VueRouter from "vue-router";
 import landingPage from "@/views/landingPage";
 import loginPage from "@/views/loginPage"
 // import forgotPassPage from "@/views/forgotPassPage"
-import policyPage from "@/views/policyPage"
+import coursesPage from "@/views/coursesPage"
 import registrationPage from "@/views/registrationPage"
 import mainPage from "@/views/mainPage"
 import recoverPage from "@/views/recoveryPage"
 import wellcome from "@/views/wellcome"
-import newCourse from "@/views/newCourseFinal"
+import course from "@/views/course"
+import newCourse from "@/views/newCourse"
 import newLesson from "@/views/newLesson"
+import settings from "@/views/settingsPage"
+import techEach from "@/views/techSupportPage"
+import alltech from "@/views/allTechPage"
 
 // import { VueResponsiveComponents } from "vue-responsive-components"
 // import approveMail from "@/views/approveMail"
@@ -52,9 +56,9 @@ const routes = [
   }
   ,
   {
-    path: "/policy",
+    path: "/course",
     name: "wellcome",
-    component: policyPage,
+    component: coursesPage,
   },
   {
     path: "/new-course",
@@ -67,6 +71,33 @@ const routes = [
     component: newLesson,
     // meta: { requiresAuth: true, requiresRole: [Role.user] }
   },
+  {
+    path:"/course/:id",
+    name:"lk_item",
+    component: course,
+    // meta: { requiresAuth: true, requiresRole: [Role.user] }
+  },
+  {
+    path:"/settings",
+    name:"settings",
+    component: settings,
+    // meta: { requiresAuth: true, requiresRole: [Role.user] }
+  },
+  {
+    path:"/tech/1",
+    name:"ts",
+    component: techEach,
+    // meta: { requiresAuth: true, requiresRole: [Role.user] }
+  },
+  {
+    path:"/tech",
+    name:"ts",
+    component: alltech,
+    // meta: { requiresAuth: true, requiresRole: [Role.user] }
+  },
+
+
+  
   
   
 ];

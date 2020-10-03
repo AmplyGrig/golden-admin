@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import axiosAuth from "@/api/axios-files"
+import axios from "@/api/axios-files"
 export default {
   data: () => ({
     url:"",

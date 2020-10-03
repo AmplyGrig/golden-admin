@@ -8,16 +8,10 @@
     <v-row class="px-8">
       <div class="logo-page">
               <v-list-item-content>
-                <v-list-item-title>Добавить курс</v-list-item-title>
+                <v-list-item-title>Курс</v-list-item-title>
               </v-list-item-content>
       </div>
     </v-row>
-     <v-text-field
-                    v-model="request_url"
-                    class="gray-bg"
-                    label="endpoint"
-                    solo
-          ></v-text-field>
     <v-row class="px-8">
       <v-form class="course-form" width="100%">
       <v-row>
@@ -29,10 +23,8 @@
           <div id="preview" class="course-logo">
             <img  v-if="url" :src="url"  class="logo" />
             <img v-else src="@/assets/no-photo-course.svg" class="logo">
-            <img src="@/assets/download.svg" class="upload">
           </div>
         </label>
-        <input id="file-upload" type="file"  @change="onFileChange"/>
 
       </v-col>
       <v-col
@@ -44,6 +36,7 @@
                     class="gray-bg"
                     label="Название курса"
                     solo
+                    readonly
           ></v-text-field>
           <v-textarea
           rows="3"
@@ -51,6 +44,7 @@
           v-model="description"
           name="input-7-4"
           label="Описание курса"
+          readonly
         ></v-textarea>
         <v-row>
           <v-col
@@ -64,6 +58,7 @@
                     label=""
                     height="50px"
                     solo
+                    readonly
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="1">
@@ -72,13 +67,36 @@
           cols="12"
           md="5"
           >
-           <v-btn rounded outlined large block color="white" @click="sendForm" dark>Опубликовать</v-btn>
           </v-col>
         </v-row>
       </v-col>
       </v-row>
 
       </v-form>
+    </v-row>
+
+    <v-row class="bg-transparent lessons">
+        <router-link class="mx-3 lesson-mini" to="/course/id">
+          <img src="@/assets/lesson.svg">
+          <v-card class="lesson-description" flat>
+              <v-list-item-content>
+                <v-list-item-title>Урок №1</v-list-item-title>
+                <v-list-item-subtitle>Название урока</v-list-item-subtitle>
+              </v-list-item-content>
+          </v-card>
+        </router-link>
+        <router-link class="mx-3 lesson-mini"  to="/course/id">
+          <img src="@/assets/lesson.svg">
+          <v-card class="lesson-description" flat>
+              <v-list-item-content>
+                <v-list-item-title>Урок №1</v-list-item-title>
+                <v-list-item-subtitle>Название урока</v-list-item-subtitle>
+              </v-list-item-content>
+          </v-card>
+        </router-link>
+        <router-link class="mx-3 lesson-mini" to="/course/id/new-lesson">
+          <img src="@/assets/plus-course.svg">
+        </router-link>
     </v-row>
   </v-container>
 </template>

@@ -1,112 +1,162 @@
 <template>
-  <v-container
-        class="fill-height"
+<v-container
+        class="px-8 main-body"
         fluid
         dark
       >
-        <template>
-  <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th v-for="(column, index) in columns" :key="index" class="text-left">{{column}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in desserts" :key="item.name">
-          <td>{{ item.name }}</td>
-          <td>{{ item.calories }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+      <v-row class="px-8">
+      <div class="logo-page">
+              <v-list-item-content>
+                <v-list-item-title>Главная</v-list-item-title>
+                <v-list-item-subtitle>Основные показатели</v-list-item-subtitle>
+              </v-list-item-content>
+      </div>
+    </v-row>
+    <v-row class="px-8"> 
+      <v-col
+      cols="12"
+      md = "8"
+      >
+        <line-chart class="chart-container" :chart-data="datacollection" :options="options"></line-chart>
+      </v-col>
+      <v-col class="stat" cols="12" md = "4">
+        <div class="numStat">
+          <p>85125</p>
+          <span>руб. дохода от реферальной программы</span>
+        </div>
+        <div class="numStat">
+          <p>129</p>
+          <span>Пользователей реферальной программы</span>
+        </div>
+      </v-col>
+    </v-row>
+    <v-row class="px-8">
+    <div class="logo-page">
+              <v-list-item-content>
+                <v-list-item-subtitle>Обращения в техническую поддержку</v-list-item-subtitle>
+              </v-list-item-content>
+      </div>
+    </v-row>
+    <v-row class="px-8">
+        <v-list  class="techinmain mr-8 pr-8" color="transparent">
+                    <v-list-item  link to="tech" class="settings-refs">
+                    <v-list-item-content>
+                        <v-list-item-title>
+                          <div>
+                            <p>ФИО</p>
+                            <span>Последнее обновление</span>
+                          </div>
+                        </v-list-item-title>
+                    </v-list-item-content>
+                                    <v-list-item-action>
+                        <v-icon color="white" x-large>mdi-chevron-right</v-icon>
+                    </v-list-item-action>
+                    </v-list-item>
+                </v-list>
+    </v-row>
+</v-container>
 </template>
-
-  </v-container>
-</template>
-
 
 <script>
+  import LineChart from './LineChart.js'
+
   export default {
+    components: {
+      LineChart
+    },
     data () {
       return {
-        columns: [ 'ФИО', 'Название объекта', 'Время изменения','' ],
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-          },
+        monthNames :["янв", "фев", "мар", "апр", "май", "июн",
+              "июл", "авг", "сен", "окт", "ноя", "дек"
         ],
+        datacollection: null,
+        options:null
       }
     },
+    mounted () {
+      this.fillData()
+    },
+    methods: {
+      fillData () {
+        this.datacollection = {
+          labels: this.getMonths(),
+          datasets: [
+            {
+              type: "line",
+              label: 'Доход от реферальных ссылок, тыс.руб.',
+              data: [0,1,5,3,2,4,4,3,2,3,1,5],
+              borderColor: ['#FFC700'],
+              pointBackgroundColor :'#FFC700',
+              pointRadius: 5
+               
+            }
+          ]
+        },
+        this.options =  {
+           responsive: true,
+            lineTension: 1,
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  padding: 25,
+                  stepSize: 5,
+                  max: 30,
+                }
+              }]
+            }
+          }
+      },
+      getMonths: function() {
+        var date = new Date();
+        var months = [];
+        for (var i = 0; i < 7; i++) {
+          months.push(this.monthNames[date.getMonth()]);
+          date.setMonth(date.getMonth() - 1)
+        }
+        return months.reverse();
+      }
+    }
   }
 </script>
+
 <style>
-@font-face {
-  font-family: "Novatny Bold";
-  src: url('../assets/fonts/NovatnyBold.otf');
+.chart-container {
+    max-height: 55vh;
+    position:relative;
 }
-@font-face {
-font-family: 'Qanelas Thin';
-src: url('../assets/fonts/Qanelas-Thin.eot');
-src: url('../assets/fonts/Qanelas-Thin.eot?#iefix') format('embedded-opentype'),
-url('../assets/fonts/Qanelas-Thin.woff') format('woff'),
-url('../assets/fonts/Qanelas-Thin.ttf') format('truetype');
+canvas#line-chart {
+   max-height: 45vh;
+}
+.numStat p {
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 59px;
+    margin: 0;
+}
+.numStat:first-of-type  {
+  margin-bottom:20px;
+}
+.numStat span {
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 18px;
+}
+.stat {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.techinmain p {
+font-weight: bold;
+font-size: 15px;
+line-height: 19px;
+margin: 0;
+}
+.techinmain span{
 font-weight: normal;
-font-style: normal;
-}
-.head-logo{
-font-family: Novatny Bold!important;
-font-weight: bold!important;
-font-size: 48px!important;
-line-height: 48px!important;
-text-align: center!important;
-display: block!important;
-color:#FFC700;
-}
-.head-sub-logo{
-  font-family: Qanelas Thin!important;
-  font-style: normal!important;
-  font-weight: 300!important;
-  font-size: 18px!important;
-  line-height: 21px!important;
-  text-align: center!important;
-  color: #FFC700!important;
+font-size: 13px;
+line-height: 15px;
 }
 </style>

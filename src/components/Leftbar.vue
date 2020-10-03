@@ -4,10 +4,11 @@
       app
       clipped
       color="black"
+      class="pl-8"
       flat
     >
       <v-list  class="mainmenu">
-        <v-list-item  link to="lksettings">
+        <v-list-item  link to="main">
           <v-list-item-action>
             <v-icon color="white">mdi-home-outline</v-icon>
           </v-list-item-action>
@@ -23,7 +24,7 @@
             <v-list-item-title>Общение</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link to="/lkabout">
+        <v-list-item link to="/course">
           <v-list-item-action>
             <v-icon color="white">mdi-book-open-outline</v-icon>
           </v-list-item-action>
@@ -31,7 +32,7 @@
             <v-list-item-title>Обучение</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link to="lksettings">
+        <v-list-item link to="user">
           <v-list-item-action>
             <v-icon color="white">mdi-account-outline</v-icon>
           </v-list-item-action>
@@ -39,7 +40,7 @@
             <v-list-item-title>Профиль</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link to="lksettings">
+        <v-list-item link to="settings">
           <v-list-item-action>
             <v-icon color="white">mdi-cog-outline</v-icon>
           </v-list-item-action>

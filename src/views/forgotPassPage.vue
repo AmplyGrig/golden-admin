@@ -5,7 +5,7 @@
             <a href="/" class="navbar-brand panel">
                 <div></div>
             </a>
-        </div>
+        </div> 
     </div>
     <div class="container-login100">
         <div class="wrap-login100 p-t-30 p-b-50">

@@ -33,7 +33,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr  v-for="(item, index) in filteredList" :key="index" :to="'/lkadmin/' + item.object_id">
+                      <tr  v-for="(item, index) in filteredList" :key="index" :to="'/users/' + item.object_id">
                        <td>{{ item.telephone }}
                        <td>{{ item.email }}
                       <td>{{ item.surename + ' '+ item.name +' '+ item.father }}</td>

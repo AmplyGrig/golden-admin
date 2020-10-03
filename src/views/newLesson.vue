@@ -121,7 +121,7 @@
 </template>
 
 <script>
-
+import axiosAuth from "@/api/axios-files"
 export default {
   data: () => ({
     url:"",
@@ -157,7 +157,7 @@ export default {
       form_data.append('price', this.price)
       form_data.append('cover_img', this.img)
       form_data.append('name', this.name)
-      axios.post('course/new', form_data).then((response) => {
+      axiosAuth.post('course/new', form_data).then((response) => {
         console.log(response.data)
       }).catch(error => {
         console.log(error)
