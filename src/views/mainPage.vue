@@ -76,6 +76,9 @@
     mounted () {
       this.fillData()
     },
+     created: function(){
+      this.fillData()
+    },
     methods: {
       fillData () {
         this.datacollection = {
@@ -125,9 +128,7 @@
     max-height: 55vh;
     position:relative;
 }
-canvas#line-chart {
-   max-height: 45vh;
-}
+
 .numStat p {
     font-weight: bold;
     font-size: 48px;

@@ -102,10 +102,12 @@ export default {
     },
     sendForm(){
       var form_data = new FormData()
-      form_data.append('description', this.description)
-      form_data.append('price', this.price)
-      form_data.append('cover_img', this.img)
-      form_data.append('name', this.name)
+      let course = {'description':this.description, 'price' : this.price,'cover_img': this.img,'name':this.name}
+      // form_data.append('description', this.description)
+      // form_data.append('price', this.price)
+      // form_data.append('cover_img', this.img)
+      // form_data.append('name', this.name)
+      form_data.append('course',course)
       axios.post('course/new', form_data).then((response) => {
         console.log(response.data)
       }).catch(error => {

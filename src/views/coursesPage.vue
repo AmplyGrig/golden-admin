@@ -17,22 +17,25 @@
     <v-col>
     <v-expansion-panels color= "transparent" class="bg-transparent" flat>
       <v-expansion-panel
-        v-for="(item,i) in 5"
+        v-for="(item,i) in courseList"
         :key="i"
       >
         <v-expansion-panel-header expand-icon="mdi-menu-down">
-              Название курса
-              <v-btn icon color="indigo" class="pen-rewrite">
+              <a class="direct-link" :href="'/course/'+item.id">
+              {{item.name}}
+              </a>
+
+              <v-btn icon color="indigo" class="pen-rewrite" :to="'/course/'+item.id+'/edit'">
                 <img src="@/assets/pen.svg">
               </v-btn>
             </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-list  class="mainmenu" flat>
-            <v-list-item  link to="lksettings">
+            <v-list-item  v-for="(lesson,k) in item.lessons" :key="k" link :to="'/course/'+item.id+'/lesson/'+lesson.id">
               <v-list-item-content>
-                <v-list-item-title>Название урока</v-list-item-title>
+                <v-list-item-title>{{lesson.name}}</v-list-item-title>
               </v-list-item-content>
-              <v-btn icon color="indigo" class="pen-rewrite">
+              <v-btn icon color="indigo" class="pen-rewrite" :to="'/course/'+item.id+'/lesson/'+lesson.id+'/edit'" >
                 <img src="@/assets/pen.svg">
               </v-btn>
             </v-list-item>
@@ -69,15 +72,41 @@
 </template>
 
 <script>
-
+import axiosAuth from "@/api/axios-auth"
 export default {
-  components: {
+  data: () => ({
+    courseList: []
+  }),
+  methods: {
+    logout(){
+      this.$store.dispatch('auth/logout')
+    },
+    // formatDate(date){
+    //   var dd = date.getDate();
+    //   if (dd < 10) dd = '0' + dd;
+    //   var mm = date.getMonth() + 1;
+    //   if (mm < 10) mm = '0' + mm;
+    //   var yy = date.getFullYear() 
+    //   return dd + '.' + mm + '.' + yy;
+    // },
+    getCourseList(){
+      axiosAuth.get("/get-course-list").then((response) => {
+        console.log(response.data)
+        // response.data.users.forEach(element => {
+        //   // let date = new Date(element['change_time'])
+        //   // element['change_time'] = this.formatDate(date)
+        // });
+        this.courseList = response.data.courses
+
+      }).catch(error => {
+        console.log(error)
+      })
+    }
   },
-  beforeCreate() {
+  created(){
+    this.getCourseList()
   },
-  beforeDestroy() {
-  }
-};
+}
 </script>
 
 <style>
@@ -115,4 +144,9 @@ export default {
 .bg-transparent *{
   background:transparent!important;
 }
+.direct-link{
+        max-width: 65%;
+        text-decoration: none;
+}
+
 </style>

@@ -38,8 +38,8 @@
                       <tr  v-for="(item, index) in filteredList" :key="index" :to="'/users/' + item.object_id">
                        <td>{{ item.telephone }}
                        <td>{{ item.email }}
-                      <td>{{ item.surename + ' '+ item.name +' '+ item.father }}</td>
-                       <td>{{role_id}}</td>
+                      <td>{{ item.surname + ' '+ item.name +' '+ item.father }}</td>
+                       <td>{{item.role_id}}</td>
                         <td>{{ item.activity }}</td>
                       </tr>
                     </tbody>
@@ -73,12 +73,16 @@ export default {
     // },
     getUserList(){
       axiosAuth.get("/get-users").then((response) => {
-        // console.log(response.data)
+        console.log(response.data)
         // response.data.users.forEach(element => {
         //   // let date = new Date(element['change_time'])
         //   // element['change_time'] = this.formatDate(date)
         // });
         this.usersList = response.data.users
+        
+        for (const [key, value] of Object.entries(this.usersList)){
+          this.usersList[key]['fullname'] = value.surname + ' '+ value.name +' '+ value.father
+        }
       }).catch(error => {
         console.log(error)
       })
@@ -101,7 +105,7 @@ export default {
     },
     filteredList() {
       return this.sortedUsers.filter(post => {
-        return post.user_name.toLowerCase().includes(this.search.toLowerCase())
+        return post.fullname.toLowerCase().includes(this.search.toLowerCase())
       })
     }
   }

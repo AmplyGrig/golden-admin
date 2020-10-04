@@ -6,9 +6,21 @@
 
       >
     <v-row class="px-3">
-      <div class="logo-page">
+      <div class="logo-page back">
               <v-list-item-content>
+              <v-list  class="back-button mr-2 " color="transparent">
+                    <v-list-item  link to="/main" class="settings-refs">
+                    <v-icon color="white" >mdi-chevron-left</v-icon>
+                    <v-list-item-content>
+                        Главная
+                    </v-list-item-content>
+                                    <v-list-item-action>
+                        
+                    </v-list-item-action>
+                    </v-list-item>
+                </v-list>
                 <v-list-item-title>Техническая поддержка</v-list-item-title>
+                
               </v-list-item-content>
       </div>
     </v-row>
@@ -17,14 +29,13 @@
         <v-textarea
           rows="4"
           solo
-          v-model="description"
-          name="input-7-4"
+          v-model="tech.question"
           label="Описание проблемы"
           readonly
         ></v-textarea>
     </v-row>
         <v-row class="mx-8" color="transparent">
-          <div v-for="(item, index) in techAttach" :key="index" id="preview" class="tech-files">
+          <div v-for="(item, index) in tech.file" :key="index" id="preview" class="tech-files">
                 <img  src="@/assets/attach-new.svg">
                 <v-card class="techAttach"  flat style="text-align:center;top: 40%;">
                     <v-list-item-content>
@@ -58,10 +69,7 @@
 import axiosAuth from "@/api/axios-files"
 export default {
   data: () => ({
-    url:"",
-    price: "",
-    techAttach:[{name:"file",size: 10000}],
-    homeworkFiles:[]
+    tech:{}
   }),
   components: {
   },
@@ -73,16 +81,6 @@ export default {
     onFileChange(e) {
       const file = e.target.files[0];
       this.lessonFiles.push(file)
-      // this.url = URL.createObjectURL(file);
-    },
-    onFileChangeLessonFiles(e) {
-      const file = e.target.files[0];
-      this.lessonFiles.push(file)
-      // this.url = URL.createObjectURL(file);
-    },
-    onFileChangeHomeworkFiles(e) {
-      const file = e.target.files[0];
-      this.homeworkFiles.push(file)
       // this.url = URL.createObjectURL(file);
     },
     sendForm(){
@@ -98,8 +96,26 @@ export default {
       })
       // console.log(this.name)
       // console.log(fd.get(name))
+    },
+    getTech(){
+      axiosAuth.get("/get-tech-request/"+this.$route.params.id).then((response) => {
+        console.log(response.data)
+        // response.data.users.forEach(element => {
+        //   // let date = new Date(element['change_time'])
+        //   // element['change_time'] = this.formatDate(date)
+        // });
+        this.tech = response.data.request
+
+      }).catch(error => {
+        console.log(error)
+      })
     }
+   
   }
+   ,
+  created(){
+    this.getTech()
+  },
 };
 </script>
 

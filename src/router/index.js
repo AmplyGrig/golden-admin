@@ -17,6 +17,10 @@ import alltech from "@/views/allTechPage"
 import profile from "@/views/profilePage"
 import editProfile from "@/views/editProfilePage"
 import statPage from "@/views/statPage"
+import lessonPage from "@/views/lessonPage"
+import lessonPageEdit from "@/views/lessonPageEdit"
+import coursePageEdit from "@/views/courseEdit"
+
 
 
 // import { VueResponsiveComponents } from "vue-responsive-components"
@@ -97,13 +101,31 @@ const routes = [
     // meta: { requiresAuth: true, requiresRole: [Role.user] }
   },
   {
+    path:"/course/:id/lesson/:les_id",
+    name:"lk_item",
+    component: lessonPage,
+    // meta: { requiresAuth: true, requiresRole: [Role.user] }
+  },
+  {
+    path:"/course/:id/lesson/:les_id/edit",
+    name:"lk_item",
+    component: lessonPageEdit,
+    // meta: { requiresAuth: true, requiresRole: [Role.user] }
+  },
+  {
+    path:"/course/:id/edit",
+    name:"lk_item",
+    component: coursePageEdit,
+    // meta: { requiresAuth: true, requiresRole: [Role.user] }
+  },
+  {
     path:"/settings",
     name:"settings",
     component: settings,
     // meta: { requiresAuth: true, requiresRole: [Role.user] }
   },
   {
-    path:"/tech/1",
+    path:"/tech/:id",
     name:"ts",
     component: techEach,
     // meta: { requiresAuth: true, requiresRole: [Role.user] }

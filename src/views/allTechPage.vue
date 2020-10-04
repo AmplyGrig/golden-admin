@@ -8,7 +8,7 @@
       <div class="logo-page back">
               <v-list-item-content>
               <v-list  class="back-button mr-2 " color="transparent">
-                    <v-list-item  link to="main" class="settings-refs">
+                    <v-list-item  link to="/main" class="settings-refs">
                     <v-icon color="white" >mdi-chevron-left</v-icon>
                     <v-list-item-content>
                         Главная
@@ -24,38 +24,28 @@
       </div>
     </v-row>
     <v-row class="px-8 mr-8">
-        <v-col cols="12" md="10" style="display:flex">
-          <v-list-item class="grow tech-part">
+        <v-col cols="12" md="10" >
+
+        <v-row>
+          <v-col v-for="(item,i) in tech" :key="i" cols="12" md="6">
+          <v-list-item   class="grow tech-part" :to="'/tech/'+item.id" >
         <v-list-item-avatar color="grey darken-3">
           <v-img
             class="elevation-6"
             alt=""
             
-            src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+            :src="item.user_image"
           ></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>Имя Фамилия</v-list-item-title>
-          <v-list-item-subtitle>Вт. 5 ноя</v-list-item-subtitle>
+          <v-list-item-title>{{item.name +' '+ item.surname}}</v-list-item-title>
+          <v-list-item-subtitle>{{item.date}}</v-list-item-subtitle>
         </v-list-item-content>
         <v-icon color="white" x-large>mdi-chevron-right</v-icon>
         </v-list-item >
-              <v-list-item class="grow tech-part">
-        <v-list-item-avatar color="grey darken-3">
-          <v-img
-            class="elevation-6"
-            alt=""
-            src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-          ></v-img>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title>Имя Фамилия</v-list-item-title>
-          <v-list-item-subtitle>Вт. 5 ноя</v-list-item-subtitle>
-        </v-list-item-content>
-        <v-icon color="white" x-large>mdi-chevron-right</v-icon>
-        </v-list-item >
+        </v-col>
+        </v-row>
         </v-col>
      </v-row>
          
@@ -64,12 +54,41 @@
 </template>
 
 <script>
-  export default {
-    name: 'mainPage',
+import axiosAuth from "@/api/axios-auth"
+export default {
+  data: () => ({
+    tech: []
+  }),
+  methods: {
+    logout(){
+      this.$store.dispatch('auth/logout')
+    },
+    // formatDate(date){
+    //   var dd = date.getDate();
+    //   if (dd < 10) dd = '0' + dd;
+    //   var mm = date.getMonth() + 1;
+    //   if (mm < 10) mm = '0' + mm;
+    //   var yy = date.getFullYear() 
+    //   return dd + '.' + mm + '.' + yy;
+    // },
+    getCourseList(){
+      axiosAuth.get("/get-tech-request").then((response) => {
+        console.log(response.data)
+        // response.data.users.forEach(element => {
+        //   // let date = new Date(element['change_time'])
+        //   // element['change_time'] = this.formatDate(date)
+        // });
+        this.tech = response.data.results
 
-    data: () => ({
-    }),
-  }
+      }).catch(error => {
+        console.log(error)
+      })
+    }
+  },
+  created(){
+    this.getCourseList()
+  },
+}
 </script>
 <style>
 .logo-page.back .v-list-item__content > * {
@@ -80,6 +99,5 @@
 }
 .tech-part {
     display: flex;
-    max-width: 50%;
 }
 </style>

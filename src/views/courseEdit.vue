@@ -21,12 +21,14 @@
       >
         <label for="file-upload" class="custom-file-upload">
           <div id="preview" class="course-logo">
-            <img  v-if="course.cover_img" :src="course.cover_img"  class="logo" />
+            <img  v-if="url" :src="url"  class="logo" />
             <img v-else src="@/assets/no-photo-course.svg" class="logo">
+            <img src="@/assets/download.svg" class="upload">
           </div>
         </label>
-
-      </v-col>
+        <input id="file-upload"  type="file"  @change="onFileChange"/>
+         <v-btn min-width="200px!important" rounded outlined large block color="white" @click="updateCourse" dark>Опубликовать</v-btn>
+        </v-col>
       <v-col
       cols="12"
       md="8"
@@ -36,7 +38,6 @@
                     class="gray-bg"
                     label="Название курса"
                     solo
-                    readonly
           ></v-text-field>
           <v-textarea
           rows="3"
@@ -44,7 +45,6 @@
           v-model="course.description"
           name="input-7-4"
           label="Описание курса"
-          readonly
         ></v-textarea>
         <v-row>
           <v-col
@@ -58,7 +58,6 @@
                     label=""
                     height="50px"
                     solo
-                    readonly
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="1">
@@ -85,12 +84,16 @@
               </v-list-item-content>
           </v-card>
         </router-link>
+         <router-link  class="mx-3 lesson-mini" :to="'/course/'+course.id+'/new-lesson'">
+              <img  src="@/assets/plus-course.svg">
+        </router-link>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import axiosAuth from "@/api/axios-auth"
+import axios from "@/api/axios-files"
 export default {
   data: () => ({
     course:{},
@@ -121,6 +124,27 @@ export default {
       }).catch(error => {
         console.log(error)
       })
+    },
+     onFileChange(e) {
+      const file = e.target.files[0];
+      this.url = URL.createObjectURL(file);
+      this.img = file
+    },
+    updateCourse(){
+      var form_data = new FormData()
+      // let course = {'description':this.description, 'price' : this.price,'cover_img': this.img,'name':this.name}
+      form_data.append('description', this.description)
+      form_data.append('price', this.price)
+      form_data.append('cover_img', this.img)
+      form_data.append('name', this.name)
+      form_data.append('id', this.$route.params.id)
+      // form_data.append('course',course)
+      axios.post('course-edit', form_data).then((response) => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+
     }
   },
   created(){

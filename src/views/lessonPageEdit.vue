@@ -6,9 +6,20 @@
 
       >
     <v-row class="px-3">
-      <div class="logo-page">
+      <div class="logo-page back">
               <v-list-item-content>
-                <v-list-item-title>Добавить урок</v-list-item-title>
+              <v-list  class="back-button mr-2 " color="transparent">
+                    <v-list-item  link :to="'/course/'+lesson.id" class="settings-refs">
+                    <v-icon color="white" >mdi-chevron-left</v-icon>
+                    <v-list-item-content>
+                        Курс
+                    </v-list-item-content>
+                                    <v-list-item-action>
+                        
+                    </v-list-item-action>
+                    </v-list-item>
+                </v-list>
+                <v-list-item-title>Урок</v-list-item-title>
               </v-list-item-content>
       </div>
     </v-row>
@@ -27,17 +38,16 @@
             <p>+</p>
           </div>
         </label>
-        <input id="file-upload" type="file" @change="onFileChange"/>
-        <v-btn min-width="200px!important" rounded outlined large block color="white" @click="sendForm" dark>Опубликовать</v-btn>
+        <v-btn min-width="200px!important" rounded outlined large block color="white" dark>Опубликовать</v-btn>
       </v-col>
       <v-col
       cols="12"
       md="8"
       >
         <v-text-field
-                    v-model="name"
                     class="gray-bg"
                     label="Название урока"
+                    v-model="lesson.name"
                     solo
           ></v-text-field>
           <v-textarea
@@ -53,19 +63,18 @@
                 <img  src="@/assets/music.svg">
               </div>
             </label>
-            <input id="file-upload" type="file" @change="onFileMusicChange"/>
           </v-col>
         </v-row>
         <v-textarea
           rows="3"
-          v-model="description"
           solo
           class="textarea-mr"
           name="input-7-4"
           label="Описание урока после аудио"
+          v-model="lesson.description"
         ></v-textarea>
           <v-row class="bg-transparent px-3 lessons extra-files">
-          <div v-for="(item, index) in lessonFiles" :key="index" id="preview"  class="lesson-files">
+          <div v-for="(item, index) in lesson.lessonFiles" :key="index" id="preview"  class="lesson-files">
                 <img  src="@/assets/upload-files.svg">
                 <v-card class="lesson-description" max-width="88%" flat style="text-align:center;top: 40%;">
                     <v-list-item-content>
@@ -79,7 +88,6 @@
                 <img  src="@/assets/plus-file-lesson.svg">
               </div>
             </label>
-            <input id="file-upload-lesson" type="file" @change="onFileChangeLessonFiles"/>
           </v-row>
           <div class="logo-page">
               <v-list-item-content>
@@ -108,7 +116,6 @@
                 <img  src="@/assets/plus-file-lesson.svg">
               </div>
             </label>
-            <input id="file-upload-homework" type="file" @change="onFileChangeHomeworkFiles"/>
           </v-row>
       </v-col>
       </v-row>
@@ -122,61 +129,42 @@
 </template>
 
 <script>
-import axiosAuth from "@/api/axios-files"
+import axiosAuth from "@/api/axios-auth"
 export default {
   data: () => ({
-    url:"",
-    price: "",
-    name:"",
-    description:"",
-    lessonFiles:[],
-    video_name:{},
-    music:{},
-    homeworkFiles:[]
+    lesson:{}
   }),
-  components: {
-  },
-  beforeCreate() {
-  },
-  beforeDestroy() {
-  },
   methods: {
-    onFileChange(e) {
-      const file = e.target.files[0];
-      this.video_name = file
-      // this.url = URL.createObjectURL(file);
+    logout(){
+      this.$store.dispatch('auth/logout')
     },
-    onFileMusicChange(e) {
-      const file = e.target.files[0];
-      this.music = file
-      // this.url = URL.createObjectURL(file);
-    },
-    onFileChangeLessonFiles(e) {
-      const file = e.target.files[0];
-      this.lessonFiles.push(file)
-      // this.url = URL.createObjectURL(file);
-    },
-    onFileChangeHomeworkFiles(e) {
-      const file = e.target.files[0];
-      this.homeworkFiles.push(file)
-      // this.url = URL.createObjectURL(file);
-    },
-    sendForm(){
-      var form_data = new FormData()
-      form_data.append('description', this.description)
-       form_data.append('video_name', this.video_name)
-      // form_data.append('cover_img', this.img)
-      form_data.append('name', this.name)
-      axiosAuth.post("/course/"+this.$route.params.id+"/new-lesson", form_data).then((response) => {
+    // formatDate(date){
+    //   var dd = date.getDate();
+    //   if (dd < 10) dd = '0' + dd;
+    //   var mm = date.getMonth() + 1;
+    //   if (mm < 10) mm = '0' + mm;
+    //   var yy = date.getFullYear() 
+    //   return dd + '.' + mm + '.' + yy;
+    // },
+    getLesson(){
+      axiosAuth.get("/get-courses/"+this.$route.params.id).then((response) => {
         console.log(response.data)
+        // response.data.users.forEach(element => {
+        //   // let date = new Date(element['change_time'])
+        //   // element['change_time'] = this.formatDate(date)
+        // });
+        // this.course = response.data.course[0]
+        this.lesson = response.data.lessons[this.$route.params.id - 1]
+
       }).catch(error => {
         console.log(error)
       })
-      // console.log(this.name)
-      // console.log(fd.get(name))
     }
-  }
-};
+  },
+  created(){
+    this.getLesson()
+  },
+}
 </script>
 
 <style>
@@ -203,5 +191,8 @@ export default {
 }
 .lesson-files{
       margin-right: 2%;
+}
+.back-button .v-list-item--link:before {
+    width: 0;
 }
 </style>
