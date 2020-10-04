@@ -19,15 +19,15 @@
                     ></v-text-field>
               </v-row>
 
-          <v-card  class="mr-8 ml-3"
+          <v-card  class="mr-8 ml-3 table-tr"
               width="90%%"
               color="transparent"
               >
-              <v-simple-table color="transparent" fixed-header >
+              <v-simple-table color="transparent" fixed-header dark >
                   <template v-slot:default>
-                    <thead color="transparent"> 
+                    <thead > 
                       <tr>
-                        <th v-for="(column, index) in columns" :key="index">
+                        <th v-for="(column, index) in columns" :key="index" id="table-head">
                         <a href="#" @click="sortBy(column)" :class="{ active: sortKey === getsrc[column] }">
                           {{ column }}
                         </a>
@@ -114,5 +114,13 @@ export default {
     font-size: 34px!important;
     line-height: 42px;
     margin-bottom: 30px;
+}
+.table-tr * {
+    background: transparent!important;
+    box-shadow: none!important;
+}
+
+#table-head {
+    border-bottom: 1px solid white!important;
 }
 </style>

@@ -9,7 +9,7 @@
               <v-list-item-content><v-list-item-title>Статистика</v-list-item-title></v-list-item-content>
           </div>
           </v-row>
-          <v-card  class="mr-8"
+          <v-card  class="mr-8 table-tr"
               width="90%%"
               color="transparent"
               >
@@ -17,7 +17,7 @@
                   <template v-slot:default>
                     <thead color="transparent"> 
                       <tr>
-                        <th v-for="(column, index) in columns" :key="index">
+                        <th v-for="(column, index) in columns" :key="index" id="table-head">
                         <a href="#" @click="sortBy(column)" :class="{ active: sortKey === getsrc[column] }">
                           {{ column }}
                         </a>
