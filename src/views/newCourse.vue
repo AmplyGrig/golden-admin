@@ -1,11 +1,11 @@
 <template>
   <v-container
-        class="px-8 main-body"
+        class="ma-8 main-body"
         fluid
         dark
 
       >
-    <v-row class="px-8">
+    <v-row class="px-3">
       <div class="logo-page">
               <v-list-item-content>
                 <v-list-item-title>Добавить курс</v-list-item-title>
@@ -75,29 +75,6 @@
       </v-form>
     </v-row>
 
-    <v-row class="bg-transparent lessons">
-        <router-link class="mx-3 lesson-mini" to="/course/id">
-          <img src="@/assets/lesson.svg">
-          <v-card class="lesson-description" flat>
-              <v-list-item-content>
-                <v-list-item-title>Урок №1</v-list-item-title>
-                <v-list-item-subtitle>Название урока</v-list-item-subtitle>
-              </v-list-item-content>
-          </v-card>
-        </router-link>
-        <router-link class="mx-3 lesson-mini"  to="/course/id">
-          <img src="@/assets/lesson.svg">
-          <v-card class="lesson-description" flat>
-              <v-list-item-content>
-                <v-list-item-title>Урок №1</v-list-item-title>
-                <v-list-item-subtitle>Название урока</v-list-item-subtitle>
-              </v-list-item-content>
-          </v-card>
-        </router-link>
-        <router-link class="mx-3 lesson-mini" to="/course/id/new-lesson">
-          <img src="@/assets/plus-course.svg">
-        </router-link>
-    </v-row>
   </v-container>
 </template>
 

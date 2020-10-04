@@ -1,23 +1,15 @@
 <template>  
         <v-container
-          class=" lk-body lk-admin"
+          class=" ma-8 lk-body lk-admin"
           fluid
           >
+          <v-row class="px-3">
           <div class="logo-page">
           
-              <v-list-item-content><v-list-item-title>Пользователи</v-list-item-title></v-list-item-content>
+              <v-list-item-content><v-list-item-title>Статистика</v-list-item-title></v-list-item-content>
           </div>
-              <v-row  class="mx-10" style="margin-top: 20px;">
-                <v-text-field
-                    v-model="search"
-                    label="Поиск"
-                    solo
-                    class="rounded-pill"
-                    prepend-inner-icon="mdi-magnify"
-                    ></v-text-field>
-              </v-row>
-
-          <v-card  class="mx-8"
+          </v-row>
+          <v-card  class="mr-8"
               width="90%%"
               color="transparent"
               >
@@ -54,8 +46,8 @@ export default {
     sortKey: 'user_name',
     reverse: false,
     search: '',
-    columns: [ 'Телефон', 'EMAIL', 'ФИО','Уровень доступа','Активность' ],
-    getsrc: {'ФИО' : 'surename', 'Телефон' : 'telephone', 'EMAIL': 'email','Уровень доступа': 'role_id','Активность': 'activity'}
+    columns: [ 'Курс/Урок', 'Человек на', 'Онлайн человек на','Человек прошло','Доход' ],
+    getsrc: {'Курс/Урок' : 'surename', 'Человек на' : 'telephone', 'Онлайн человек на': 'email','Человек прошло': 'role_id','Доход': 'activity'}
   }),
   methods: {
     logout(){

@@ -1,10 +1,10 @@
 <template>
 <v-container
-        class="px-8 main-body"
+        class="ma-8 main-body"
         fluid
         dark
       >
-      <v-row class="px-8">
+      <v-row class="px-3">
       <div class="logo-page">
               <v-list-item-content>
                 <v-list-item-title>Главная</v-list-item-title>

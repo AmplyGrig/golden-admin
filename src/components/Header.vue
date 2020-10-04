@@ -32,8 +32,7 @@
 </script>
 <style>
 .v-toolbar {
-    border-bottom: 1px solid white!important;
-    border-color:   white!important;
+    border-bottom:1px solid #ffffff29!important;
     background: black!important;
 }
 

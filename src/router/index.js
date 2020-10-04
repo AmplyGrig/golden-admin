@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import landingPage from "@/views/landingPage";
+import usersPage from "@/views/usersPage";
 import loginPage from "@/views/loginPage"
 // import forgotPassPage from "@/views/forgotPassPage"
 import coursesPage from "@/views/coursesPage"
@@ -14,6 +14,10 @@ import newLesson from "@/views/newLesson"
 import settings from "@/views/settingsPage"
 import techEach from "@/views/techSupportPage"
 import alltech from "@/views/allTechPage"
+import profile from "@/views/profilePage"
+import editProfile from "@/views/editProfilePage"
+import statPage from "@/views/statPage"
+
 
 // import { VueResponsiveComponents } from "vue-responsive-components"
 // import approveMail from "@/views/approveMail"
@@ -25,9 +29,24 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "MainPage",
-    component: landingPage,
+    path: "/users",
+    name: "usersPage",
+    component: usersPage,
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: profile,
+  },
+  {
+    path: "/stat",
+    name: "statPage",
+    component: statPage,
+  },
+  {
+    path: "/profile/edit",
+    name: "profile",
+    component: editProfile,
   },
   {
     path: "/login",

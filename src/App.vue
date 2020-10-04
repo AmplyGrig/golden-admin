@@ -49,7 +49,7 @@ font-style: normal;
 }
 #app{
   background: black;
-  padding: 0,20px;
+  padding: 0 20px;
 }
 .mainmenu *,#app *{
   color: white;

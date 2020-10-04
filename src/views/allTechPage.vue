@@ -2,8 +2,9 @@
   <v-container
         fluid
         dark
+        class="ma-8"
       >
-      <v-row class="px-8">
+      <v-row class="px-3">
       <div class="logo-page back">
               <v-list-item-content>
               <v-list  class="back-button mr-2 " color="transparent">
